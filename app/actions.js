@@ -16,3 +16,11 @@ export function answerPollAction(poll) {
 		poll,
 	};
 }
+
+export function receivedDataAction(users, polls) {
+	return {
+		type: RECEIVED_DATA,
+		users,
+		polls,
+	};
+}
