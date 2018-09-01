@@ -5,13 +5,26 @@ import Home from './Home';
 import Leaderboard from './Leaderboard';
 import AddPoll from './AddPoll';
 import Nav from './Nav';
-import { initialDataThunk } from '../actions';
-import { getInitialData } from '../utils/api';
+import { initialDataThunk, savePollThunk } from '../actions';
+import { getInitialData, savePoll } from '../utils/api';
 
 class App extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.addPoll = this.addPoll.bind(this);
+	}
+
 	componentDidMount() {
 		const { dispatch } = this.props;
 		dispatch(initialDataThunk({ getInitialData }));
+	}
+
+	addPoll(e, poll) {
+		e.preventDefault();
+		const { history, dispatch } = this.props;
+		history.push('/');
+		dispatch(savePollThunk(poll, { savePoll }));
 	}
 
 	render() {
@@ -45,7 +58,7 @@ class App extends React.Component {
 				<Route
 					path="/add-poll"
 					render={
-						() => (<AddPoll {...props} />)
+						() => (<AddPoll {...props} handleSubmit={this.addPoll} />)
 					}
 				/>
 			</div>
