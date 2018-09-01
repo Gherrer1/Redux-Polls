@@ -5,8 +5,8 @@ import App from './Components/App';
 import './style.css';
 
 ReactDOM.render(
-    <Router>
-        <App />
-    </Router>, 
-    document.getElementById('app')
+	<Router>
+		<App />
+	</Router>, 
+	document.getElementById('app')
 );
