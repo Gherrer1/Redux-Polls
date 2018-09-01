@@ -25,6 +25,13 @@ export function answerPollAction(poll) {
 	};
 }
 
+export function answerPollThunk(payload, api, poll) {
+	return function apThunk(dispatch) {
+		api.savePollAnswer(payload)
+			.then(() => dispatch(answerPollAction(poll)));
+	};
+}
+
 export function receivedDataAction(users, polls) {
 	return {
 		type: RECEIVED_DATA,

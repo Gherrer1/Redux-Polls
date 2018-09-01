@@ -2,9 +2,10 @@ import { createStore } from 'redux';
 import reducers from './reducers';
 import middlewares from './middlewares';
 import {
-	addPollAction, answerPollAction, receivedDataAction, receivedError, savePollThunk,
+	addPollAction, answerPollAction, receivedDataAction,
+	receivedError, savePollThunk, answerPollThunk,
 } from './actions';
-import { getInitialData, savePoll } from './utils/api';
+import { getInitialData, savePoll, savePollAnswer } from './utils/api';
 
 const store = createStore(reducers, middlewares);
 getInitialData()
@@ -23,4 +24,9 @@ getInitialData()
 			c: '8',
 			d: '9',
 		}, { savePoll }));
+		store.dispatch(answerPollThunk({
+			authedUser: 'tylermcginnis',
+			id: 'am8ehyc8byjqgar0jgpub9',
+			answer: 'b',
+		}, { savePollAnswer }, { ...data.polls.am8ehyc8byjqgar0jgpub9 }));
 	});
