@@ -1,32 +1,23 @@
-import { combineReducers } from 'redux';
-import { RECEIVED_DATA, RECEIVED_ERROR } from './actionTypes';
+import {
+	ANSWER_POLL,
+	ADD_POLL,
+} from './actions';
 
-function loading(state = true, action) {
+function answered(state = null, action) {
 	switch (action.type) {
-	case RECEIVED_DATA:
-		return false;
-	case RECEIVED_ERROR:
-		return false;
+	case ANSWER_POLL:
+		return state ? state.concat(action.poll) : [action.poll];
 	default:
 		return state;
 	}
 }
 
-function error(state = false, action) {
+function unanswered(state = null, action) {
 	switch (action.type) {
-	case RECEIVED_ERROR:
-		return true;
-	case RECEIVED_DATA:
-		return false;
-	default:
-		return state;
-	}
-}
-
-function users(state = null, action) {
-	switch (action.type) {
-	case RECEIVED_DATA:
-		return action.data.users;
+	case ADD_POLL:
+		return state ? state.concat(action.poll) : [action.poll];
+	case ANSWER_POLL:
+		return state.filter(poll => poll.id !== action.poll.id);
 	default:
 		return state;
 	}
@@ -34,16 +25,27 @@ function users(state = null, action) {
 
 function polls(state = null, action) {
 	switch (action.type) {
-	case RECEIVED_DATA:
-		return action.data.polls;
+	case ADD_POLL:
+		return {
+			...state,
+			unanswered: unanswered((state && state.unanswered) || [], action),
+		};
+	case ANSWER_POLL:
+		return {
+			answered: answered(state.answered, action),
+			unanswered: unanswered(state.unanswered, action),
+		};
 	default:
 		return state;
 	}
 }
 
-export default combineReducers({
-	loading,
-	error,
-	users,
-	polls,
-});
+const initialAppState = {
+	polls: null,
+};
+
+export default function appReducer(state = initialAppState, action) {
+	return {
+		polls: polls(state.polls, action),
+	};
+}

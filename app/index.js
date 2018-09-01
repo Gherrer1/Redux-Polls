@@ -1,16 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
-import { BrowserRouter as Router } from 'react-router-dom';
-import App from './Components/App';
-import reducer from './reducers';
-import './style.css';
+import reducers from './reducers';
+import middlewares from './middlewares';
+import { addPollAction, answerPollAction } from './actions';
+import { getInitialData } from './utils/api';
 
-const store = createStore(reducer);
-
-ReactDOM.render(
-	<Router>
-		<App store={store} />
-	</Router>,
-	document.getElementById('app')
-);
+const store = createStore(reducers, middlewares);
+getInitialData()
+	.then((data) => {
+		Object.values(data.polls).forEach(poll => store.dispatch(addPollAction(poll)));
+		store.dispatch(answerPollAction(data.polls.xj352vofupe1dqz9emx13r));
+		store.dispatch(answerPollAction(data.polls['6ni6ok3ym7mf1p33lnez']));
+		const { polls } = store.getState();
+		console.log(polls.answered);
+		console.log(polls.unanswered);
+	});

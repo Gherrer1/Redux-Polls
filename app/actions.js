@@ -1,14 +1,18 @@
-import { RECEIVED_DATA, RECEIVED_ERROR } from './actionTypes';
+export const RECEIVED_DATA = 'RECEIVED_DATA';
+export const RECEIVED_ERROR = 'RECEIVED_ERROR';
+export const ADD_POLL = 'ADD_POLL';
+export const ANSWER_POLL = 'ANSWER_POLL';
 
-export function receivedDataAction(data) {
+export function addPollAction(poll) {
 	return {
-		type: RECEIVED_DATA,
-		data,
+		type: ADD_POLL,
+		poll,
 	};
 }
 
-export function receivedErrorAction() {
+export function answerPollAction(poll) {
 	return {
-		type: RECEIVED_ERROR,
+		type: ANSWER_POLL,
+		poll,
 	};
 }

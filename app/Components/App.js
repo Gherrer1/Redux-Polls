@@ -6,7 +6,7 @@ import Leaderboard from './Leaderboard';
 import AddPoll from './AddPoll';
 import Nav from './Nav';
 import { getInitialData } from '../utils/api';
-import { receivedDataAction, receivedErrorAction } from '../actions';
+// import { receivedDataAction, receivedErrorAction } from '../actions';
 
 class App extends React.Component {
 	componentDidMount() {
