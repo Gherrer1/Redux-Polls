@@ -4,7 +4,7 @@ import {
 	RECEIVED_DATA,
 	RECEIVED_ERROR,
 } from './actions';
-import { iveAnswered } from './utils/helpers';
+import { iveAnswered, isMe, isNotMe } from './utils/helpers';
 
 const initialPollsState = {
 	unanswered: [],
@@ -64,10 +64,15 @@ function polls(state = initialPollsState, action) {
 	}
 }
 
-function users(state, action) {
+function users(state = [], action) {
 	switch (action.type) {
 	case RECEIVED_DATA:
 		return Object.values(action.users);
+	case ADD_POLL:
+		return state.filter(isNotMe).concat({
+			...state.find(isMe),
+			polls: state.find(isMe).polls.concat(action.poll.id),
+		});
 	default:
 		return state;
 	}

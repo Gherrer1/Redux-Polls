@@ -15,3 +15,11 @@ export function iveAnswered(poll) {
 		|| bVotes.includes(me) || cVotes.includes(me) || dVotes.includes(me);
 	return retVal;
 }
+
+export function isMe(user) {
+	return user.id === 'tylermcginnis';
+}
+
+export function isNotMe(user) {
+	return !isMe(user);
+}
