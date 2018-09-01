@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { RECEIVED_DATA, RECEIVED_ERROR } from '../Actions/actionTypes';
+import { RECEIVED_DATA, RECEIVED_ERROR } from './actionTypes';
 
 function loading(state = true, action) {
 	switch (action.type) {
@@ -23,10 +23,19 @@ function error(state = false, action) {
 	}
 }
 
-function users(state = {}, action) {
+function users(state = null, action) {
 	switch (action.type) {
 	case RECEIVED_DATA:
-		return action.data;
+		return action.data.users;
+	default:
+		return state;
+	}
+}
+
+function polls(state = null, action) {
+	switch (action.type) {
+	case RECEIVED_DATA:
+		return action.data.polls;
 	default:
 		return state;
 	}
@@ -36,5 +45,5 @@ export default combineReducers({
 	loading,
 	error,
 	users,
-	// polls
+	polls,
 });

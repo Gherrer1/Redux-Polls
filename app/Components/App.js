@@ -6,7 +6,7 @@ import Leaderboard from './Leaderboard';
 import AddPoll from './AddPoll';
 import Nav from './Nav';
 import { getInitialData } from '../utils/api';
-import { receivedDataAction, receivedErrorAction } from '../Actions';
+import { receivedDataAction, receivedErrorAction } from '../actions';
 
 class App extends React.Component {
 	componentDidMount() {
@@ -25,6 +25,7 @@ class App extends React.Component {
 			loading: state.loading,
 			error: state.error,
 		};
+		console.log(state.users);
 
 		return (
 			<div>
