@@ -6,7 +6,9 @@ module.exports = {
     "rules": {
         "comma-dangle": ["error", {
             "functions": "ignore",
-            "objects": "always-multiline"
+            "objects": "always-multiline",
+            "imports": "always-multiline",
+            "arrays": "always-multiline",
         }],
         "indent": ["error", "tab"],
         "no-param-reassign": [2, {"props": false}],
