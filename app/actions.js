@@ -45,3 +45,11 @@ export function receivedError() {
 		type: RECEIVED_ERROR,
 	};
 }
+
+export function initialDataThunk(api) {
+	return function idThunk(dispatch) {
+		api.getInitialData()
+			.then(data => dispatch(receivedDataAction(data.users, data.polls)))
+			.catch(err => console.log(err) || dispatch(receivedError()));
+	};
+}
