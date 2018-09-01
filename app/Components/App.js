@@ -1,24 +1,20 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Home from './Home';
 import Leaderboard from './Leaderboard';
 import AddPoll from './AddPoll';
 import Nav from './Nav';
+import { initialDataThunk } from '../actions';
 import { getInitialData } from '../utils/api';
-// import { receivedDataAction, receivedErrorAction } from '../actions';
 
 class App extends React.Component {
 	componentDidMount() {
-		const { store } = this.props;
-		store.subscribe(() => this.forceUpdate());
-
-		getInitialData()
-			.then(data => console.log(data) || store.dispatch(receivedDataAction(data)))
-			.catch(err => console.log(err) || store.dispatch(receivedErrorAction()));
+		const { dispatch } = this.props;
+		dispatch(initialDataThunk({ getInitialData }));
 	}
 
-	render() {
+	_render() {
 		const { store } = this.props;
 		const { loading, error, polls } = store.getState();
 		const props = {
@@ -52,9 +48,28 @@ class App extends React.Component {
 			</div>
 		);
 	}
+
+	render() {
+		console.log('App rendering');
+		const {
+			loading, error, polls, users,
+		} = this.props;
+		return (
+			<div>
+				<p>Loading? {`${loading}`}</p>
+				<p>Error? {`${error}`}</p>
+				<p>polls: {JSON.stringify(polls)}</p>
+				<p>users: {JSON.stringify(users)}</p>
+			</div>
+		);
+	}
 }
-App.propTypes = {
-	store: PropTypes.object.isRequired,
-};
 
 export default App;
+
+export const ConnectedApp = connect(state => ({
+	loading: state.loading,
+	error: state.error,
+	polls: state.polls,
+	users: state.users,
+}))(App);

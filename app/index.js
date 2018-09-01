@@ -1,30 +1,20 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducers from './reducers';
 import middlewares from './middlewares';
-import { initialDataThunk } from './actions';
-import { getInitialData, savePoll, savePollAnswer } from './utils/api';
+import { ConnectedApp } from './Components/App';
+import './style.css';
 
 const store = createStore(reducers, middlewares);
-store.dispatch(initialDataThunk({ getInitialData }));
-// getInitialData()
-// 	.then((data) => {
-// 		store.dispatch(receivedDataAction(data.users, data.polls));
-// 		store.dispatch(addPollAction({
-// 			...data.polls.vthrdm985a262al8qx3do,
-// 			id: '45',
-// 		}));
-// 		store.dispatch(answerPollAction(store.getState().polls.unanswered.find(poll => poll.id === '45')));
-// 		store.dispatch(receivedError());
-// 		store.dispatch(savePollThunk({
-// 			question: 'how long?',
-// 			a: '6',
-// 			b: '7',
-// 			c: '8',
-// 			d: '9',
-// 		}, { savePoll }));
-// 		store.dispatch(answerPollThunk({
-// 			authedUser: 'tylermcginnis',
-// 			id: 'am8ehyc8byjqgar0jgpub9',
-// 			answer: 'b',
-// 		}, { savePollAnswer }, { ...data.polls.am8ehyc8byjqgar0jgpub9 }));
-// 	});
+
+ReactDOM.render(
+	<Router>
+		<Provider store={store}>
+			<ConnectedApp />
+		</Provider>
+	</Router>,
+	document.getElementById('app')
+);
