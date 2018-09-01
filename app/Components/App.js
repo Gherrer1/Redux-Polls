@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Home from './Home';
 import Leaderboard from './Leaderboard';
@@ -54,10 +54,10 @@ class App extends React.Component {
 }
 
 export default App;
-
-export const ConnectedApp = connect(state => ({
+// withRouter is what makes switching between Routes. I wonder why. Read.
+export const ConnectedApp = withRouter(connect(state => ({
 	loading: state.loading,
 	error: state.error,
 	polls: state.polls,
 	users: state.users,
-}))(App);
+}))(App));

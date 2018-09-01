@@ -11,10 +11,10 @@ import './style.css';
 const store = createStore(reducers, middlewares);
 
 ReactDOM.render(
-	<Router>
-		<Provider store={store}>
+	<Provider store={store}>
+		<Router>
 			<ConnectedApp />
-		</Provider>
-	</Router>,
+		</Router>
+	</Provider>,
 	document.getElementById('app')
 );
