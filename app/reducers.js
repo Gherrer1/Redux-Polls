@@ -32,7 +32,7 @@ function answered(state = [], action) {
 function unanswered(state = [], action) {
 	switch (action.type) {
 	case ADD_POLL:
-		return state ? state.concat([action.poll]) : [action.poll];
+		return state.concat([action.poll]);
 	case ANSWER_POLL:
 		return state.filter(poll => poll.id !== action.poll.id);
 	case RECEIVED_DATA:

@@ -11,6 +11,7 @@ module.exports = {
             "arrays": "always-multiline",
         }],
         "indent": ["error", "tab"],
+        "no-alert": 0,
         "no-param-reassign": [2, {"props": false}],
         "no-plusplus": 0,
         "no-tabs": 0,

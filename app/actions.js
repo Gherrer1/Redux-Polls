@@ -10,6 +10,14 @@ export function addPollAction(poll) {
 	};
 }
 
+export function savePollThunk(poll, api) {
+	return function spThunk(dispatch) {
+		api.savePoll(poll)
+			.then(data => dispatch(addPollAction(data)))
+			.catch(() => alert('Something went wrong'));
+	};
+}
+
 export function answerPollAction(poll) {
 	return {
 		type: ANSWER_POLL,
