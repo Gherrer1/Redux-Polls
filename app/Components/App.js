@@ -20,12 +20,12 @@ class App extends React.Component {
 
 	render() {
 		const { store } = this.props;
-		const state = store.getState();
+		const { loading, error, polls } = store.getState();
 		const props = {
-			loading: state.loading,
-			error: state.error,
+			loading,
+			error,
+			polls,
 		};
-		console.log(state.users);
 
 		return (
 			<div>
