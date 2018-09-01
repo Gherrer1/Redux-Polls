@@ -2,6 +2,7 @@ import {
 	ANSWER_POLL,
 	ADD_POLL,
 	RECEIVED_DATA,
+	RECEIVED_ERROR,
 } from './actions';
 import { iveAnswered } from './utils/helpers';
 
@@ -13,6 +14,8 @@ const initialPollsState = {
 const initialAppState = {
 	polls: initialPollsState,
 	users: [],
+	loading: true,
+	error: false,
 };
 
 function answered(state = [], action) {
@@ -70,9 +73,31 @@ function users(state, action) {
 	}
 }
 
+function loading(state = true, action) {
+	switch (action.type) {
+	case RECEIVED_ERROR:
+		return false;
+	case RECEIVED_DATA:
+		return false;
+	default:
+		return state;
+	}
+}
+
+function error(state = false, action) {
+	switch (action.type) {
+	case RECEIVED_ERROR:
+		return true;
+	default:
+		return state;
+	}
+}
+
 export default function appReducer(state = initialAppState, action) {
 	return {
 		polls: polls(state.polls, action),
 		users: users(state.users, action),
+		loading: loading(state.loading, action),
+		error: error(state.error, action),
 	};
 }

@@ -24,3 +24,9 @@ export function receivedDataAction(users, polls) {
 		polls,
 	};
 }
+
+export function receivedError() {
+	return {
+		type: RECEIVED_ERROR,
+	};
+}

@@ -1,7 +1,9 @@
 import { createStore } from 'redux';
 import reducers from './reducers';
 import middlewares from './middlewares';
-import { addPollAction, answerPollAction, receivedDataAction } from './actions';
+import {
+	addPollAction, answerPollAction, receivedDataAction, receivedError,
+} from './actions';
 import { getInitialData } from './utils/api';
 
 const store = createStore(reducers, middlewares);
@@ -13,4 +15,5 @@ getInitialData()
 			id: '45',
 		}));
 		store.dispatch(answerPollAction(store.getState().polls.unanswered.find(poll => poll.id === '45')));
+		store.dispatch(receivedError());
 	});
