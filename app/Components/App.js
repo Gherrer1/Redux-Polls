@@ -14,15 +14,18 @@ class App extends React.Component {
 		dispatch(initialDataThunk({ getInitialData }));
 	}
 
-	_render() {
-		const { store } = this.props;
-		const { loading, error, polls } = store.getState();
+	render() {
+		console.log('App rendering');
+		const {
+			loading, error, polls, users,
+		} = this.props;
+		// just to be explicit
 		const props = {
 			loading,
 			error,
 			polls,
+			users,
 		};
-
 		return (
 			<div>
 				<Nav />
@@ -45,21 +48,6 @@ class App extends React.Component {
 						() => (<AddPoll {...props} />)
 					}
 				/>
-			</div>
-		);
-	}
-
-	render() {
-		console.log('App rendering');
-		const {
-			loading, error, polls, users,
-		} = this.props;
-		return (
-			<div>
-				<p>Loading? {`${loading}`}</p>
-				<p>Error? {`${error}`}</p>
-				<p>polls: {JSON.stringify(polls)}</p>
-				<p>users: {JSON.stringify(users)}</p>
 			</div>
 		);
 	}
