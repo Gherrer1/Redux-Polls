@@ -6,7 +6,8 @@ module.exports = {
     entry: './app/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'crumple.js'
+        filename: 'crumple.js',
+        publicPath: '/'
     },
     module: {
         rules: [
@@ -16,5 +17,8 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({ template: './app/index.html'} )
-    ]
+    ],
+    devServer: {
+        historyApiFallback: true
+    }
 };
