@@ -20,8 +20,11 @@ class App extends React.Component {
 
 	render() {
 		const { store } = this.props;
-		const { loading, error } = store.getState();
-
+		const state = store.getState();
+		const props = {
+			loading: state.loading,
+			error: state.error,
+		};
 
 		return (
 			<div>
@@ -30,11 +33,21 @@ class App extends React.Component {
 					exact
 					path="/"
 					render={
-						() => (<Home loading={loading} error={error} />)
+						() => (<Home {...props} />)
 					}
 				/>
-				<Route path="/leaderboard" component={Leaderboard} />
-				<Route path="/add-poll" component={AddPoll} />
+				<Route
+					path="/leaderboard"
+					render={
+						() => (<Leaderboard {...props} />)
+					}
+				/>
+				<Route
+					path="/add-poll"
+					render={
+						() => (<AddPoll {...props} />)
+					}
+				/>
 			</div>
 		);
 	}
