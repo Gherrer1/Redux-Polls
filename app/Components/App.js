@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Home from './Home';
 import Leaderboard from './Leaderboard';
 import { ConnectedAddPoll } from './AddPoll';
+import VoteOnPoll from './VoteOnPoll';
 import Nav from './Nav';
 import { initialDataThunk } from '../actions';
 import { getInitialData } from '../utils/api';
@@ -33,7 +34,7 @@ class App extends React.Component {
 					exact
 					path="/"
 					render={
-						() => (<Home {...props} />)
+						routerProps => (<Home {...props} {...routerProps} />)
 					}
 				/>
 				<Route
@@ -46,6 +47,12 @@ class App extends React.Component {
 					path="/add-poll"
 					render={
 						routerProps => (<ConnectedAddPoll {...props} {...routerProps} />)
+					}
+				/>
+				<Route
+					path="/polls/:id"
+					render={
+						routerProps => <VoteOnPoll {...routerProps} />
 					}
 				/>
 			</div>
