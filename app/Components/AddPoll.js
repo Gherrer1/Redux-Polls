@@ -1,5 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { savePoll } from '../utils/api';
+import { savePollThunk } from '../actions';
 
 class AddPoll extends React.Component {
 	constructor(props) {
@@ -15,6 +18,7 @@ class AddPoll extends React.Component {
 
 		this.handleChange = this.handleChange.bind(this);
 		this.isDisabled = this.isDisabled.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
 	handleChange(event, stateField) {
@@ -32,11 +36,19 @@ class AddPoll extends React.Component {
 			|| c.length === 0 || d.length === 0;
 	}
 
+	handleSubmit(e) {
+		e.preventDefault();
+		const newPoll = Object.assign({}, this.state);
+		const { history, dispatch } = this.props;
+		history.push('/');
+		dispatch(savePollThunk(newPoll, { savePoll }));
+	}
+
 	render() {
 		const {
 			question, a, b, c, d,
 		} = this.state;
-		const { loading, error, handleSubmit } = this.props;
+		const { loading, error } = this.props;
 		if (loading) {
 			return (<div>Loading</div>);
 		}
@@ -45,7 +57,7 @@ class AddPoll extends React.Component {
 		}
 		return (
 			<div>
-				<form className="add-form" onSubmit={e => handleSubmit(e, Object.assign({}, this.state))}>
+				<form className="add-form" onSubmit={e => this.handleSubmit(e)}>
 					<label htmlFor="question">
 						<h3>What is your question?</h3>
 						<input value={question} id="question" type="text" className="input" onChange={e => this.handleChange(e, 'question')} />
@@ -76,7 +88,13 @@ class AddPoll extends React.Component {
 AddPoll.propTypes = {
 	loading: PropTypes.bool.isRequired,
 	error: PropTypes.bool.isRequired,
-	handleSubmit: PropTypes.func.isRequired,
+	history: PropTypes.object.isRequired,
+	dispatch: PropTypes.func.isRequired,
 };
 
 export default AddPoll;
+
+export const ConnectedAddPoll = connect(state => ({
+	loading: state.loading,
+	error: state.error,
+}))(AddPoll);
