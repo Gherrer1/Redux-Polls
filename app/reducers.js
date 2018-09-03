@@ -73,6 +73,11 @@ function users(state = [], action) {
 			...state.find(isMe),
 			polls: state.find(isMe).polls.concat(action.poll.id),
 		});
+	case ANSWER_POLL:
+		return state.filter(isNotMe).concat({
+			...state.find(isMe),
+			answers: state.find(isMe).answers.concat(action.poll.id),
+		});
 	default:
 		return state;
 	}
