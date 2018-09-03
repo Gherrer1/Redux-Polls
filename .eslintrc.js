@@ -16,6 +16,7 @@ module.exports = {
         "no-param-reassign": [2, {"props": false}],
         "no-plusplus": 0,
         "no-tabs": 0,
+        "no-underscore-dangle": 0,
         "react/forbid-prop-types": 0,
         "react/jsx-filename-extension": 0,
         "react/jsx-indent": [2, 'tab'],

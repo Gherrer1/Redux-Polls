@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { answerPollThunk } from '../actions';
 import { savePollAnswer } from '../utils/api';
+import { iveAnswered } from '../utils/helpers';
 
 function VoteOnPollPresentation({ poll, handleVote }) {
 	return (
@@ -45,7 +46,7 @@ export default function VoteOnPoll({
 		return (<p>No such poll exists</p>);
 	}
 
-	function handleVote(key, id) {
+	function _handleVote(key, id) {
 		dispatch(answerPollThunk({
 			authedUser: 'tylermcginnis',
 			id,
@@ -53,6 +54,8 @@ export default function VoteOnPoll({
 		}, { savePollAnswer }, { ...poll }));
 		history.push('/');
 	}
+
+	const handleVote = iveAnswered(poll) ? () => {} : _handleVote;
 
 	return <VoteOnPollPresentation poll={poll} handleVote={handleVote} />;
 }
