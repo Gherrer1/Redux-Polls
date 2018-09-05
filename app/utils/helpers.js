@@ -20,6 +20,10 @@ export function iveAnswered(poll) {
 	return retVal;
 }
 
+export function isMyAnswer(poll, optionKey) {
+	return poll[`${optionKey}Votes`].includes('tylermcginnis');
+}
+
 export function isMe(user) {
 	return user.id === 'tylermcginnis';
 }
