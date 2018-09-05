@@ -1,3 +1,5 @@
+import { showLoading, hideLoading } from 'react-redux-loading-bar';
+
 export const RECEIVED_DATA = 'RECEIVED_DATA';
 export const RECEIVED_ERROR = 'RECEIVED_ERROR';
 export const ADD_POLL = 'ADD_POLL';
@@ -12,9 +14,11 @@ export function addPollAction(poll) {
 
 export function savePollThunk(poll, api) {
 	return function spThunk(dispatch) {
+		dispatch(showLoading());
 		api.savePoll(poll)
 			.then(data => dispatch(addPollAction(data)))
-			.catch(() => alert('Something went wrong'));
+			.catch(() => alert('Something went wrong'))
+			.finally(() => dispatch(hideLoading()));
 	};
 }
 
@@ -48,8 +52,10 @@ export function receivedError() {
 
 export function initialDataThunk(api) {
 	return function idThunk(dispatch) {
+		dispatch(showLoading());
 		api.getInitialData()
 			.then(data => dispatch(receivedDataAction(data.users, data.polls)))
-			.catch(err => console.log(err) || dispatch(receivedError()));
+			.catch(() => dispatch(receivedError()))
+			.finally(() => dispatch(hideLoading()));
 	};
 }

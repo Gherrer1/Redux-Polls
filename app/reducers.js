@@ -1,3 +1,5 @@
+import { loadingBarReducer } from 'react-redux-loading-bar';
+import { combineReducers } from 'redux';
 import {
 	ANSWER_POLL,
 	ADD_POLL,
@@ -9,13 +11,6 @@ import { iveAnswered, isMe, isNotMe } from './utils/helpers';
 const initialPollsState = {
 	unanswered: [],
 	answered: [],
-};
-
-const initialAppState = {
-	polls: initialPollsState,
-	users: [],
-	loading: true,
-	error: false,
 };
 
 function answered(state = [], action) {
@@ -103,11 +98,10 @@ function error(state = false, action) {
 	}
 }
 
-export default function appReducer(state = initialAppState, action) {
-	return {
-		polls: polls(state.polls, action),
-		users: users(state.users, action),
-		loading: loading(state.loading, action),
-		error: error(state.error, action),
-	};
-}
+export default combineReducers({
+	loadingBar: loadingBarReducer,
+	polls,
+	users,
+	loading,
+	error,
+});
