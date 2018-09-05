@@ -22,17 +22,18 @@ export function savePollThunk(poll, api) {
 	};
 }
 
-export function answerPollAction(poll) {
+export function answerPollAction(poll, answer) {
 	return {
 		type: ANSWER_POLL,
 		poll,
+		answer,
 	};
 }
 
 export function answerPollThunk(payload, api, poll) {
 	return function apThunk(dispatch) {
 		api.savePollAnswer(payload)
-			.then(() => dispatch(answerPollAction(poll)));
+			.then(() => dispatch(answerPollAction(poll, payload.answer)));
 	};
 }
 

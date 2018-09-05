@@ -16,7 +16,10 @@ const initialPollsState = {
 function answered(state = [], action) {
 	switch (action.type) {
 	case ANSWER_POLL:
-		return state.concat(action.poll);
+		return state.concat({
+			...action.poll,
+			[`${action.answer}Votes`]: action.poll[`${action.answer}Votes`].concat('tylermcginnis'),
+		});
 	case RECEIVED_DATA:
 		return Object.values(action.polls).filter(poll => iveAnswered(poll));
 	default:
