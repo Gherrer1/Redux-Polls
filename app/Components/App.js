@@ -16,7 +16,6 @@ class App extends React.Component {
 	}
 
 	render() {
-		console.log('App rendering');
 		const {
 			loading, error, polls, users,
 		} = this.props;
@@ -28,7 +27,7 @@ class App extends React.Component {
 			users,
 		};
 		return (
-			<div>
+			<div className="container">
 				<Nav />
 				<Route
 					exact
