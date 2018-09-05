@@ -3,15 +3,18 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { answerPollThunk } from '../actions';
 import { savePollAnswer } from '../utils/api';
-import { iveAnswered } from '../utils/helpers';
+import { iveAnswered, getTotalVotes, getPercentage } from '../utils/helpers';
 
 function VoteOnPollPresentation({ poll, handleVote }) {
+	const answered = iveAnswered(poll);
+	const totalVotes = getTotalVotes(poll);
 	return (
 		<div className="poll-container">
+			{/* <p>{JSON.stringify(poll)} {totalVotes}</p> */}
 			<h1 className="question">{poll.question}</h1>
 			<p className="poll-author">By {poll.author}</p>
 			<ul>
-				{['aText', 'bText', 'cText', 'dText'].map(key => (
+				{['a', 'b', 'c', 'd'].map(key => (
 					<li
 						key={key}
 						className="option"
@@ -19,7 +22,7 @@ function VoteOnPollPresentation({ poll, handleVote }) {
 						onKeyUp={() => handleVote(key, poll.id)}
 						role="button"
 					>
-						{poll[key]}
+						{poll[`${key}Text`]} {answered && `${getPercentage(poll[`${key}Votes`].length, totalVotes)}%`}
 					</li>
 				))}
 			</ul>
@@ -50,7 +53,7 @@ export default function VoteOnPoll({
 		dispatch(answerPollThunk({
 			authedUser: 'tylermcginnis',
 			id,
-			answer: key.substring(0, 1),
+			answer: key,
 		}, { savePollAnswer }, { ...poll }));
 		history.push('/');
 	}
