@@ -17,10 +17,7 @@ User.propTypes = {
 	user: PropTypes.object.isRequired,
 };
 
-function Leaderboard({ loading, error, users }) {
-	if (loading) {
-		return (<div>Loading</div>);
-	}
+function Leaderboard({ error, users }) {
 	if (error) {
 		return (<div>Something went wrong. Try again</div>);
 	}
@@ -29,12 +26,11 @@ function Leaderboard({ loading, error, users }) {
 	);
 	return (
 		<div>
-			{console.log(users) || sortedUsers.map(user => <User user={user} key={user.id} />)}
+			{sortedUsers.map(user => <User user={user} key={user.id} />)}
 		</div>
 	);
 }
 Leaderboard.propTypes = {
-	loading: PropTypes.bool.isRequired,
 	error: PropTypes.bool.isRequired,
 	users: PropTypes.array.isRequired,
 };

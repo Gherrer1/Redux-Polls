@@ -48,10 +48,7 @@ class AddPoll extends React.Component {
 		const {
 			question, a, b, c, d,
 		} = this.state;
-		const { loading, error } = this.props;
-		if (loading) {
-			return (<div>Loading</div>);
-		}
+		const { error } = this.props;
 		if (error) {
 			return (<div>Something went wrong. Try again</div>);
 		}
@@ -86,7 +83,6 @@ class AddPoll extends React.Component {
 	}
 }
 AddPoll.propTypes = {
-	loading: PropTypes.bool.isRequired,
 	error: PropTypes.bool.isRequired,
 	history: PropTypes.object.isRequired,
 	dispatch: PropTypes.func.isRequired,
@@ -95,6 +91,5 @@ AddPoll.propTypes = {
 export default AddPoll;
 
 export const ConnectedAddPoll = connect(state => ({
-	loading: state.loading,
 	error: state.error,
 }))(AddPoll);

@@ -27,12 +27,7 @@ class Home extends React.Component {
 	}
 
 	render() {
-		const {
-			loading, error, polls, match,
-		} = this.props;
-		if (loading) {
-			return (<div>Loading</div>);
-		}
+		const { error, polls, match } = this.props;
 		if (error) {
 			return (<div>Something went wrong. Try again</div>);
 		}
@@ -62,7 +57,6 @@ class Home extends React.Component {
 	}
 }
 Home.propTypes = {
-	loading: PropTypes.bool.isRequired,
 	error: PropTypes.bool.isRequired,
 	polls: PropTypes.object,
 	match: PropTypes.object.isRequired,
