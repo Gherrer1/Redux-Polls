@@ -35,7 +35,7 @@ VoteOnPollPresentation.propTypes = {
 };
 
 export default function VoteOnPoll({
-	history, loading, error, poll, dispatch,
+	loading, error, poll, dispatch,
 }) {
 	if (loading) {
 		return (<p>Loading...</p>);
@@ -55,7 +55,6 @@ export default function VoteOnPoll({
 			id,
 			answer: key,
 		}, { savePollAnswer }, { ...poll }));
-		history.push('/');
 	}
 
 	const handleVote = iveAnswered(poll) ? () => {} : _handleVote;
@@ -63,7 +62,6 @@ export default function VoteOnPoll({
 	return <VoteOnPollPresentation poll={poll} handleVote={handleVote} />;
 }
 VoteOnPoll.propTypes = {
-	history: PropTypes.object.isRequired,
 	poll: PropTypes.object,
 	loading: PropTypes.bool.isRequired,
 	error: PropTypes.bool.isRequired,

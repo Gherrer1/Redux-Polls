@@ -32,8 +32,10 @@ export function answerPollAction(poll, answer) {
 
 export function answerPollThunk(payload, api, poll) {
 	return function apThunk(dispatch) {
+		dispatch(showLoading());
 		api.savePollAnswer(payload)
-			.then(() => dispatch(answerPollAction(poll, payload.answer)));
+			.then(() => dispatch(answerPollAction(poll, payload.answer)))
+			.finally(() => dispatch(hideLoading()));
 	};
 }
 
